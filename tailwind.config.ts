@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Couleurs personnalisées pour Avenir Afrique
+				"aaf-blue": "#1E40AF",
+				"aaf-orange": "#F97316",
+				"aaf-teal": "#0D9488",
+				"aaf-light-blue": "#93C5FD",
+				"aaf-light-orange": "#FDBA74",
+				"aaf-light-teal": "#5EEAD4",
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

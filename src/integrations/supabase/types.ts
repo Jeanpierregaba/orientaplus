@@ -9,7 +9,98 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      assessments: {
+        Row: {
+          age: number | null
+          aptitude_results: Json | null
+          created_at: string | null
+          education_level: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          personality_results: Json | null
+          preferred_subjects: string[] | null
+          professional_preferences: Json | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          age?: number | null
+          aptitude_results?: Json | null
+          created_at?: string | null
+          education_level?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          personality_results?: Json | null
+          preferred_subjects?: string[] | null
+          professional_preferences?: Json | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          age?: number | null
+          aptitude_results?: Json | null
+          created_at?: string | null
+          education_level?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          personality_results?: Json | null
+          preferred_subjects?: string[] | null
+          professional_preferences?: Json | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      career_recommendations: {
+        Row: {
+          assessment_id: string
+          career_title: string
+          compatibility_score: number | null
+          created_at: string | null
+          description: string | null
+          education_path: string | null
+          id: string
+          industry: string | null
+          recommendation_number: number
+          skills_required: string[] | null
+        }
+        Insert: {
+          assessment_id: string
+          career_title: string
+          compatibility_score?: number | null
+          created_at?: string | null
+          description?: string | null
+          education_path?: string | null
+          id?: string
+          industry?: string | null
+          recommendation_number: number
+          skills_required?: string[] | null
+        }
+        Update: {
+          assessment_id?: string
+          career_title?: string
+          compatibility_score?: number | null
+          created_at?: string | null
+          description?: string | null
+          education_path?: string | null
+          id?: string
+          industry?: string | null
+          recommendation_number?: number
+          skills_required?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_recommendations_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

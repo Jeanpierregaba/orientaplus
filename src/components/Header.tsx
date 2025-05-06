@@ -11,9 +11,20 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   const menuItems = [
     { title: "Accueil", path: "/" },
@@ -22,6 +33,15 @@ const Header = () => {
     { title: "Métiers", path: "/careers" },
     { title: "Mentors", path: "/mentors" },
   ];
+
+  const getUserInitials = () => {
+    if (!user || !user.user_metadata) return "AA";
+    
+    const firstName = user.user_metadata.first_name as string || "";
+    const lastName = user.user_metadata.last_name as string || "";
+    
+    return firstName.charAt(0).toUpperCase() + (lastName ? lastName.charAt(0).toUpperCase() : "");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -55,12 +75,45 @@ const Header = () => {
           </NavigationMenu>
 
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/login">Connexion</Link>
-            </Button>
-            <Button size="sm" asChild>
-              <Link to="/register">Inscription</Link>
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Avatar className="h-10 w-10">
+                      <AvatarFallback className="bg-aaf-blue text-white">
+                        {getUserInitials()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile">Profil</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard">Tableau de bord</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/settings">Paramètres</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => signOut()}>
+                    Déconnexion
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/login">Connexion</Link>
+                </Button>
+                <Button size="sm" asChild>
+                  <Link to="/register">Inscription</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
 
@@ -125,12 +178,56 @@ const Header = () => {
             </Link>
           ))}
           <div className="flex flex-col space-y-2 pt-2">
-            <Button variant="outline" asChild>
-              <Link to="/login">Connexion</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/register">Inscription</Link>
-            </Button>
+            {user ? (
+              <>
+                <div className="flex items-center space-x-2 p-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="bg-aaf-blue text-white">
+                      {getUserInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span>{user.email}</span>
+                </div>
+                <Link 
+                  to="/profile"
+                  className="px-2 py-1 text-lg hover:text-primary"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Profil
+                </Link>
+                <Link 
+                  to="/dashboard"
+                  className="px-2 py-1 text-lg hover:text-primary"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Tableau de bord
+                </Link>
+                <Link 
+                  to="/settings"
+                  className="px-2 py-1 text-lg hover:text-primary"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Paramètres
+                </Link>
+                <Button 
+                  onClick={() => {
+                    signOut();
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Déconnexion
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outline" asChild>
+                  <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>Connexion</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>Inscription</Link>
+                </Button>
+              </>
+            )}
           </div>
         </nav>
       </div>

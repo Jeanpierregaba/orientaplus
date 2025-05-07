@@ -1,11 +1,12 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { CareerRecommendation } from "@/types/assessment";
@@ -23,48 +24,54 @@ const AssessmentResults = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   
+  const fetchResults = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const { data, error } = await supabase
+        .from('career_recommendations')
+        .select('*')
+        .eq('assessment_id', assessmentId)
+        .order('recommendation_number', { ascending: true });
+        
+      if (error) {
+        throw new Error(error.message);
+      }
+      
+      if (data && data.length > 0) {
+        setRecommendations(data);
+      } else {
+        setError('Aucune recommandation trouvée pour cette évaluation');
+      }
+    } catch (err) {
+      console.error('Error fetching recommendations:', err);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Impossible de charger les résultats"
+      });
+      setError('Une erreur est survenue lors du chargement des recommandations');
+    } finally {
+      setLoading(false);
+    }
+  }, [assessmentId, toast]);
+  
   useEffect(() => {
     if (!assessmentId || !user) {
       return;
     }
     
-    const fetchResults = async () => {
-      try {
-        setLoading(true);
-        
-        const { data, error } = await supabase
-          .from('career_recommendations')
-          .select('*')
-          .eq('assessment_id', assessmentId)
-          .order('recommendation_number', { ascending: true });
-          
-        if (error) {
-          throw new Error(error.message);
-        }
-        
-        if (data && data.length > 0) {
-          setRecommendations(data);
-        } else {
-          setError('Aucune recommandation trouvée pour cette évaluation');
-        }
-      } catch (err) {
-        console.error('Error fetching recommendations:', err);
-        toast({
-          variant: "destructive",
-          title: "Erreur",
-          description: "Impossible de charger les résultats"
-        });
-        setError('Une erreur est survenue lors du chargement des recommandations');
-      } finally {
-        setLoading(false);
-      }
-    };
-    
     fetchResults();
-  }, [assessmentId, user, toast]);
+  }, [assessmentId, user, fetchResults]);
   
   const handleNewAssessment = () => {
     navigate('/assessment');
+  };
+
+  const handleRetry = () => {
+    toast.info("Nouvelle tentative de chargement...");
+    fetchResults();
   };
   
   if (loading) {
@@ -85,7 +92,11 @@ const AssessmentResults = () => {
             </div>
             
             {error ? (
-              <ErrorView errorMessage={error} onNewAssessment={handleNewAssessment} />
+              <ErrorView 
+                errorMessage={error} 
+                onNewAssessment={handleNewAssessment}
+                onRetry={handleRetry}
+              />
             ) : (
               <div className="space-y-8">
                 <Tabs defaultValue="overview" className="w-full">

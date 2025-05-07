@@ -20,7 +20,7 @@ const AssessmentResults = () => {
   const [recommendations, setRecommendations] = useState<CareerRecommendation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { toast } = useToast();
+  const { toast: uiToast } = useToast();
   const navigate = useNavigate();
   const { user } = useAuth();
   
@@ -46,7 +46,7 @@ const AssessmentResults = () => {
       }
     } catch (err) {
       console.error('Error fetching recommendations:', err);
-      toast({
+      uiToast({
         variant: "destructive",
         title: "Erreur",
         description: "Impossible de charger les résultats"
@@ -55,7 +55,7 @@ const AssessmentResults = () => {
     } finally {
       setLoading(false);
     }
-  }, [assessmentId, toast]);
+  }, [assessmentId, uiToast]);
   
   useEffect(() => {
     if (!assessmentId || !user) {
@@ -70,7 +70,10 @@ const AssessmentResults = () => {
   };
 
   const handleRetry = () => {
-    toast.info("Nouvelle tentative de chargement...");
+    // Using the sonner toast for notifications
+    toast("Nouvelle tentative de chargement...", {
+      description: "Chargement des résultats en cours"
+    });
     fetchResults();
   };
   
@@ -134,3 +137,4 @@ const AssessmentResults = () => {
 };
 
 export default AssessmentResults;
+

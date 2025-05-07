@@ -10,3 +10,13 @@ export interface CareerRecommendation {
   industry: string | null;
   compatibility_score: number | null;
 }
+
+export interface SchoolPartner {
+  id: number;
+  name: string;
+  location: string;
+  description: string;
+  fields: string[];
+  website: string;
+  image: string;
+}

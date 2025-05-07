@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +30,7 @@ const Header = () => {
     { title: "À propos", path: "/about" },
     { title: "Évaluation", path: "/assessment" },
     { title: "Métiers", path: "/careers" },
+    { title: "Écoles", path: "/schools" },
     { title: "Mentors", path: "/mentors" },
   ];
 

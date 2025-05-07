@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Assessment from "./pages/Assessment";
 import AssessmentResults from "./pages/AssessmentResults";
 import Careers from "./pages/Careers";
+import Schools from "./pages/Schools";
 import Mentors from "./pages/Mentors";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -39,6 +40,7 @@ const App = () => (
               </ProtectedRoute>
             } />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/schools" element={<Schools />} />
             <Route path="/mentors" element={<Mentors />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

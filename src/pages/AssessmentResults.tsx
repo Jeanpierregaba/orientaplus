@@ -18,8 +18,9 @@ import CareerDetailCard from "@/components/assessment-results/CareerDetailCard";
 const AssessmentResults = () => {
   const { assessmentId } = useParams<{ assessmentId: string }>();
   const [recommendations, setRecommendations] = useState<CareerRecommendation[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Changed to false so it doesn't load automatically
   const [error, setError] = useState<string | null>(null);
+  const [resultsRequested, setResultsRequested] = useState(false); // Track if user has requested results
   const { toast: uiToast } = useToast();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -29,6 +30,8 @@ const AssessmentResults = () => {
       setLoading(true);
       setError(null);
       
+      console.log("Fetching results for assessment:", assessmentId);
+      
       const { data, error } = await supabase
         .from('career_recommendations')
         .select('*')
@@ -36,12 +39,15 @@ const AssessmentResults = () => {
         .order('recommendation_number', { ascending: true });
         
       if (error) {
+        console.error("Supabase error:", error);
         throw new Error(error.message);
       }
       
       if (data && data.length > 0) {
+        console.log("Recommendations found:", data.length);
         setRecommendations(data);
       } else {
+        console.log("No recommendations found");
         setError('Aucune recommandation trouvée pour cette évaluation');
       }
     } catch (err) {
@@ -58,24 +64,50 @@ const AssessmentResults = () => {
   }, [assessmentId, uiToast]);
   
   useEffect(() => {
-    if (!assessmentId || !user) {
-      return;
+    // Only fetch results if explicitly requested by the user
+    if (resultsRequested && assessmentId && user) {
+      fetchResults();
     }
-    
-    fetchResults();
-  }, [assessmentId, user, fetchResults]);
+  }, [assessmentId, user, fetchResults, resultsRequested]);
   
   const handleNewAssessment = () => {
     navigate('/assessment');
   };
 
   const handleRetry = () => {
-    // Using the sonner toast for notifications
     toast("Nouvelle tentative de chargement...", {
       description: "Chargement des résultats en cours"
     });
+    setResultsRequested(true); // Mark that results are requested
     fetchResults();
   };
+  
+  // Added a new function to view results when button is clicked
+  const handleViewResults = () => {
+    setResultsRequested(true);
+    fetchResults();
+  };
+  
+  // Show a button to view results if they haven't been requested yet
+  if (!resultsRequested) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow bg-slate-50 flex items-center justify-center">
+          <div className="text-center max-w-md p-6 bg-white shadow-lg rounded-lg">
+            <h1 className="text-2xl font-bold mb-4">Résultats prêts</h1>
+            <p className="text-gray-600 mb-6">
+              Vos résultats d'évaluation sont prêts à être consultés. Cliquez sur le bouton ci-dessous pour les afficher.
+            </p>
+            <Button onClick={handleViewResults} className="w-full">
+              Voir les résultats
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
   
   if (loading) {
     return <LoadingView />;
@@ -137,4 +169,3 @@ const AssessmentResults = () => {
 };
 
 export default AssessmentResults;
-

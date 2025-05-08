@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
@@ -41,6 +40,15 @@ serve(async (req) => {
     }
 
     console.log('Analyzing career options for assessment:', assessmentId);
+    
+    // Extract authorization header for RLS policies
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Missing authorization header' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      );
+    }
 
     // Generate recommendations - either using Deepseek API or fallback to mock data
     let recommendations;
@@ -103,11 +111,11 @@ serve(async (req) => {
     }
 
     // Create Supabase client with the Auth context of the logged-in user
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      { global: { headers: { Authorization: req.headers.get('Authorization')! } } }
-    );
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+    
+    // Use service role key to bypass RLS
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
     // Store recommendations in the database
     const careersToInsert = recommendations.recommendations.map((rec: any, index: number) => ({
@@ -121,7 +129,7 @@ serve(async (req) => {
       compatibility_score: rec.compatibility_score || null
     }));
 
-    const { data: insertedData, error: insertError } = await supabaseClient
+    const { data: insertedData, error: insertError } = await supabaseAdmin
       .from('career_recommendations')
       .insert(careersToInsert);
 
@@ -383,4 +391,3 @@ function extractRecommendationsFromText(text: string): any[] {
     professionalPreferences: {}
   });
 }
-

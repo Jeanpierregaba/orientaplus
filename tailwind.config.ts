@@ -63,13 +63,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Couleurs personnalisées pour Avenir Afrique
-				"aaf-blue": "#1E40AF",
-				"aaf-orange": "#F97316",
-				"aaf-teal": "#0D9488",
-				"aaf-light-blue": "#93C5FD",
-				"aaf-light-orange": "#FDBA74",
-				"aaf-light-teal": "#5EEAD4",
+				// Nouvelles couleurs pour Orienta+
+				"orienta-dark-green": "#0A4A3B",
+				"orienta-medium-green": "#3D8C40",
+				"orienta-light-green": "#8BC34A", 
+				"orienta-yellow": "#D6E343",
+				"orienta-soft-green": "#F2FCE2",
+				"soft-purple": "#F0E6FA",
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

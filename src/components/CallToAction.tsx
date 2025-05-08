@@ -6,7 +6,7 @@ const CallToAction = () => {
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-aaf-blue/90 to-aaf-teal/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-orienta-dark-green/90 to-orienta-medium-green/90"></div>
         <img
           src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1470&auto=format&fit=crop"
           alt="Background"
@@ -23,7 +23,7 @@ const CallToAction = () => {
             Rejoins des milliers d'étudiants qui ont trouvé leur voie grâce à notre plateforme d'orientation innovante.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" variant="secondary" asChild>
+            <Button size="lg" variant="secondary" className="bg-orienta-yellow text-orienta-dark-green hover:bg-orienta-yellow/80" asChild>
               <Link to="/register">Créer mon compte</Link>
             </Button>
             <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/10" asChild>

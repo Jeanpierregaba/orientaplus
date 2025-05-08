@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +36,7 @@ const Header = () => {
   ];
 
   const getUserInitials = () => {
-    if (!user || !user.user_metadata) return "AA";
+    if (!user || !user.user_metadata) return "O+";
     
     const firstName = user.user_metadata.first_name as string || "";
     const lastName = user.user_metadata.last_name as string || "";
@@ -48,8 +49,8 @@ const Header = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-aaf-blue">
-              <span className="gradient-text">Avenir Afrique</span>
+            <span className="text-2xl font-bold">
+              <span className="gradient-text">Orienta+</span>
             </span>
           </Link>
         </div>
@@ -80,7 +81,7 @@ const Header = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar className="h-10 w-10">
-                      <AvatarFallback className="bg-aaf-blue text-white">
+                      <AvatarFallback className="bg-orienta-dark-green text-white">
                         {getUserInitials()}
                       </AvatarFallback>
                     </Avatar>
@@ -182,7 +183,7 @@ const Header = () => {
               <>
                 <div className="flex items-center space-x-2 p-2">
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-aaf-blue text-white">
+                    <AvatarFallback className="bg-orienta-dark-green text-white">
                       {getUserInitials()}
                     </AvatarFallback>
                   </Avatar>

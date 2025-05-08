@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-16 md:py-24">
+    <div className="relative overflow-hidden bg-gradient-to-b from-white to-orienta-soft-green py-16 md:py-24">
       <div className="absolute inset-0 z-0">
-        <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-aaf-light-blue opacity-20 blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-aaf-light-orange opacity-20 blur-3xl"></div>
-        <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-aaf-light-teal opacity-20 blur-3xl"></div>
+        <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-orienta-light-green opacity-20 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orienta-yellow opacity-20 blur-3xl"></div>
+        <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-orienta-medium-green opacity-20 blur-3xl"></div>
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -41,7 +41,7 @@ const Hero = () => {
             </div>
             
             <div className="absolute -bottom-6 -left-6 bg-white rounded-lg p-4 shadow-lg max-w-[200px]">
-              <div className="text-aaf-blue font-bold text-xl mb-1">+2000</div>
+              <div className="text-orienta-dark-green font-bold text-xl mb-1">+2000</div>
               <div className="text-gray-600 text-sm">Étudiants guidés vers leur voie idéale</div>
             </div>
           </div>

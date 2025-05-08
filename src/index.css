@@ -14,16 +14,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 221 83% 53%; /* Blue */
+    --primary: 160 77% 16%; /* Orienta+ vert foncé */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 30 95% 60%; /* Orange */
+    --secondary: 84 57% 58%; /* Orienta+ vert clair */
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 171 65% 42%; /* Teal */
+    --accent: 80 69% 58%; /* Orienta+ jaune-vert */
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -31,7 +31,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221 83% 53%;
+    --ring: 160 77% 16%;
 
     --radius: 0.5rem;
 
@@ -55,16 +55,16 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 221 83% 65%;
+    --primary: 160 77% 25%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 30 95% 65%;
+    --secondary: 84 57% 65%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 171 65% 45%;
+    --accent: 80 69% 65%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -92,5 +92,5 @@
 }
 
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-aaf-blue via-aaf-teal to-aaf-orange;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-orienta-dark-green via-orienta-medium-green to-orienta-yellow;
 }

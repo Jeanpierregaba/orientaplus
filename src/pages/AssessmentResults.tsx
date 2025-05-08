@@ -18,9 +18,9 @@ import CareerDetailCard from "@/components/assessment-results/CareerDetailCard";
 const AssessmentResults = () => {
   const { assessmentId } = useParams<{ assessmentId: string }>();
   const [recommendations, setRecommendations] = useState<CareerRecommendation[]>([]);
-  const [loading, setLoading] = useState(false); // Changed to false so it doesn't load automatically
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [resultsRequested, setResultsRequested] = useState(false); // Track if user has requested results
+  const [resultsRequested, setResultsRequested] = useState(false);
   const { toast: uiToast } = useToast();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -64,7 +64,6 @@ const AssessmentResults = () => {
   }, [assessmentId, uiToast]);
   
   useEffect(() => {
-    // Only fetch results if explicitly requested by the user
     if (resultsRequested && assessmentId && user) {
       fetchResults();
     }
@@ -78,17 +77,15 @@ const AssessmentResults = () => {
     toast("Nouvelle tentative de chargement...", {
       description: "Chargement des résultats en cours"
     });
-    setResultsRequested(true); // Mark that results are requested
+    setResultsRequested(true);
     fetchResults();
   };
   
-  // Added a new function to view results when button is clicked
   const handleViewResults = () => {
     setResultsRequested(true);
     fetchResults();
   };
   
-  // Show a button to view results if they haven't been requested yet
   if (!resultsRequested) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -99,7 +96,7 @@ const AssessmentResults = () => {
             <p className="text-gray-600 mb-6">
               Vos résultats d'évaluation sont prêts à être consultés. Cliquez sur le bouton ci-dessous pour les afficher.
             </p>
-            <Button onClick={handleViewResults} className="w-full">
+            <Button onClick={handleViewResults} className="w-full bg-orienta-medium-green hover:bg-orienta-dark-green">
               Voir les résultats
             </Button>
           </div>
@@ -116,7 +113,7 @@ const AssessmentResults = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow bg-slate-50 py-10">
+      <main className="flex-grow bg-orienta-soft-green py-10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
@@ -154,7 +151,7 @@ const AssessmentResults = () => {
                 </Tabs>
                 
                 <div className="flex justify-center pt-4">
-                  <Button onClick={handleNewAssessment} variant="outline">
+                  <Button onClick={handleNewAssessment} variant="outline" className="border-orienta-medium-green text-orienta-dark-green hover:bg-orienta-light-green/20">
                     Faire une nouvelle évaluation
                   </Button>
                 </div>

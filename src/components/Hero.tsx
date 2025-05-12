@@ -15,10 +15,10 @@ const Hero = () => {
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1 text-center md:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight">
-              Découvre ton <span className="gradient-text">avenir</span> en Afrique
+              Construisez Votre <span className="gradient-text">avenir</span> : Découvrez Votre Parcours Idéal
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl">
-              Ta plateforme d'orientation qui te guide vers les études et carrières 
+              Orienta+ qui te guide vers les études et carrières 
               qui correspondent à ta personnalité, tes talents et tes aspirations.
             </p>
             <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">

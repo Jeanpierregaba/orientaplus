@@ -6,7 +6,7 @@ const testimonials = [
   {
     name: "Aminata Diallo",
     role: "Étudiante en Ingénierie",
-    testimonial: "Grâce à Avenir Afrique, j'ai découvert ma passion pour le génie civile. Les tests de personnalité m'ont vraiment aidée à comprendre mes forces et à choisir une voie qui me correspond.",
+    testimonial: "Grâce à Orienta+, j'ai découvert ma passion pour le génie civile. Les tests de personnalité m'ont vraiment aidée à comprendre mes forces et à choisir une voie qui me correspond.",
     avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1374&auto=format&fit=crop",
     initials: "AD",
   },
@@ -20,7 +20,7 @@ const testimonials = [
   {
     name: "Fatou Sow",
     role: "Étudiante en Médecine",
-    testimonial: "Le mentorat proposé par Avenir Afrique a été déterminant dans mon parcours. J'ai pu échanger avec des médecins qui m'ont confortée dans mon choix et m'ont donné des conseils précieux.",
+    testimonial: "Le mentorat proposé par Orienta+ a été déterminant dans mon parcours. J'ai pu échanger avec des médecins qui m'ont confortée dans mon choix et m'ont donné des conseils précieux.",
     avatar: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?q=80&w=1389&auto=format&fit=crop",
     initials: "FS",
   },

@@ -12,6 +12,7 @@ import AptitudeTest from "@/components/assessment/AptitudeTest";
 import ProfessionalPreferences from "@/components/assessment/ProfessionalPreferences";
 import { useAssessmentData } from "@/hooks/useAssessmentData";
 import { useAssessmentSubmit } from "@/hooks/useAssessmentSubmit";
+import { toast } from "@/components/ui/sonner";
 
 const Assessment = () => {
   const [step, setStep] = useState(1);
@@ -53,6 +54,29 @@ const Assessment = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    
+    // Vérification des données requises
+    if (!personalInfo.firstName || !personalInfo.lastName || !personalInfo.age) {
+      toast.error("Veuillez remplir toutes les informations personnelles requises");
+      return;
+    }
+    
+    if (Object.keys(personalityAnswers).length === 0) {
+      toast.error("Veuillez compléter le test de personnalité");
+      return;
+    }
+    
+    if (Object.keys(aptitudeRatings).length === 0) {
+      toast.error("Veuillez compléter le test d'aptitudes");
+      return;
+    }
+    
+    if (selectedSectors.length === 0) {
+      toast.error("Veuillez sélectionner au moins un secteur d'activité");
+      return;
+    }
+    
     setIsSubmitting(true);
     try {
       await handleSubmit(e, {
@@ -63,6 +87,9 @@ const Assessment = () => {
         workPreference,
         additionalInfo
       });
+    } catch (error) {
+      console.error('Erreur lors de la soumission:', error);
+      toast.error("Une erreur s'est produite lors de la soumission");
     } finally {
       setIsSubmitting(false);
     }
@@ -181,6 +208,10 @@ const Assessment = () => {
                     <Button 
                       type="submit"
                       disabled={isSubmitting}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onSubmit(e);
+                      }}
                     >
                       {isSubmitting ? (
                         <>

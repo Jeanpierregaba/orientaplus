@@ -34,7 +34,7 @@ const Hero = () => {
           <div className="flex-1 relative">
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop" 
+                src="https://img.freepik.com/free-photo/students-studying-together-medium-shot_23-2148913227.jpg?semt=ais_hybrid&w=740" 
                 alt="Étudiants africains" 
                 className="w-full h-full object-cover"
               />

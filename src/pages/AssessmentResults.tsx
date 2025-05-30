@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "@/components/Header";
@@ -62,12 +61,6 @@ const AssessmentResults = () => {
       setLoading(false);
     }
   }, [assessmentId, uiToast]);
-  
-  useEffect(() => {
-    if (resultsRequested && assessmentId && user) {
-      fetchResults();
-    }
-  }, [assessmentId, user, fetchResults, resultsRequested]);
   
   const handleNewAssessment = () => {
     navigate('/assessment');
@@ -150,7 +143,7 @@ const AssessmentResults = () => {
                   ))}
                 </Tabs>
                 
-                <div className="flex justify-center pt-4">
+                <div className="text-center">
                   <Button onClick={handleNewAssessment} variant="outline" className="border-orienta-medium-green text-orienta-dark-green hover:bg-orienta-light-green/20">
                     Faire une nouvelle évaluation
                   </Button>

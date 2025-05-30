@@ -9,12 +9,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 const schoolsData = [
   {
     id: 1,
-    name: "École Polytechnique",
-    location: "Palaiseau, France",
-    description: "Une école d'ingénieurs de renommée mondiale spécialisée dans les sciences et la technologie.",
-    fields: ["Ingénierie", "Mathématiques", "Physique", "Informatique"],
-    website: "https://www.polytechnique.edu",
-    image: "/placeholder.svg"
+    name: "École Supérieur de Commerce et d'Economie Numérique",
+    location: "Lomé, TOGO",
+    description: "Première École d’Économie Numérique en Afrique Sub-saharienne Francophone",
+    fields: ["Management de Projet Numérique", "Finance Digitale", "Marketing Digital", "Intelligence Artificielle & Génie Logiciel"],
+    website: "https://escen.university/",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW9nVHJc_hWjYmQqmG7HfeGLw09H71yViZKg&s"
   },
   {
     id: 2,

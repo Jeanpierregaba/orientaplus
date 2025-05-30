@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import CallToAction from "@/components/CallToAction";
 
 const About = () => {
   return (
@@ -42,7 +43,7 @@ const About = () => {
               <div className="relative">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
                   <img 
-                    src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?q=80&w=1374&auto=format&fit=crop" 
+                    src="https://img.freepik.com/free-photo/study-group-african-people_23-2149156431.jpg?semt=ais_hybrid&w=740" 
                     alt="Problème d'orientation" 
                     className="w-full h-full object-cover"
                   />
@@ -63,7 +64,7 @@ const About = () => {
               <div className="order-2 md:order-1 relative">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
                   <img 
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop" 
+                    src="https://media.istockphoto.com/id/1443546306/photo/teacher-teaching-basics-of-using-computer.jpg?s=612x612&w=0&k=20&c=gLFnQsVYtU-qZmrefqj_I8Dwdbkj4hhHpZh5Ichahdg=" 
                     alt="Notre solution" 
                     className="w-full h-full object-cover"
                   />
@@ -110,7 +111,7 @@ const About = () => {
                 <div key={item} className="text-center">
                   <div className="w-40 h-40 rounded-full overflow-hidden mx-auto mb-4">
                     <img 
-                      src={`https://randomuser.me/api/portraits/${item % 2 === 0 ? 'women' : 'men'}/${item + 10}.jpg`} 
+                      src={`https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3383.jpg`} 
                       alt="Team member" 
                       className="w-full h-full object-cover"
                     />
@@ -124,18 +125,7 @@ const About = () => {
         </section>
         
         {/* CTA Section */}
-        <section className="py-16 bg-aaf-blue text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-6">Rejoins l'aventure Avenir Afrique</h2>
-            <p className="text-xl mb-8 max-w-3xl mx-auto opacity-90">
-              Que tu sois élève, étudiant, mentor ou représentant d'une institution éducative, 
-              notre plateforme t'accompagne dans ton parcours.
-            </p>
-            <Button size="lg" variant="secondary" asChild>
-              <Link to="/register">Créer mon compte gratuitement</Link>
-            </Button>
-          </div>
-        </section>
+        <CallToAction />
       </main>
       <Footer />
     </div>

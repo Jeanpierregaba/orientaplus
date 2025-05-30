@@ -1,5 +1,3 @@
-
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
@@ -22,7 +20,6 @@ interface AssessmentData {
 }
 
 export const useAssessmentSubmit = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -36,8 +33,6 @@ export const useAssessmentSubmit = () => {
     }
     
     try {
-      setLoading(true);
-      
       // Format preferred subjects as an array
       const preferredSubjectsArray = assessmentData.personalInfo.preferredSubjects
         ? assessmentData.personalInfo.preferredSubjects.split(',').map(subject => subject.trim())
@@ -98,26 +93,34 @@ export const useAssessmentSubmit = () => {
           console.warn(`AI analysis warning: ${aiError.message}`);
           // Continue without throwing, as we've implemented fallback recommendations
         }
+
+        // Wait for a short delay to ensure the analysis is complete
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        toast.success("Évaluation complétée avec succès !");
+        
+        // Navigate to results page
+        navigate(`/assessment-results/${assessmentResult.id}`);
       } catch (apiError) {
         // Log the error but continue - our edge function has fallback recommendations
         console.warn("API error during career analysis:", apiError);
+        
+        // Wait for a short delay to ensure the analysis is complete
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        toast.success("Évaluation complétée avec succès !");
+        
+        // Navigate to results page
+        navigate(`/assessment-results/${assessmentResult.id}`);
       }
-      
-      toast.success("Évaluation complétée avec succès !");
-      
-      // Navigate to results page
-      navigate(`/assessment-results/${assessmentResult.id}`);
-      
     } catch (error) {
       console.error("Error submitting assessment:", error);
       toast.error("Une erreur s'est produite. Veuillez réessayer plus tard.");
-    } finally {
-      setLoading(false);
+      throw error; // Re-throw the error to be handled by the component
     }
   };
 
   return {
-    loading,
     handleSubmit
   };
 };

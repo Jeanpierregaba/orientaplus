@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,6 +16,7 @@ import { useAssessmentSubmit } from "@/hooks/useAssessmentSubmit";
 const Assessment = () => {
   const [step, setStep] = useState(1);
   const [currentTab, setCurrentTab] = useState("personality");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const {
     personalInfo,
@@ -37,7 +37,7 @@ const Assessment = () => {
     sectors
   } = useAssessmentData();
   
-  const { loading, handleSubmit } = useAssessmentSubmit();
+  const { handleSubmit } = useAssessmentSubmit();
 
   const handleNextStep = () => {
     if (step < 3) {
@@ -51,15 +51,21 @@ const Assessment = () => {
     }
   };
 
-  const onSubmit = (e: React.FormEvent) => {
-    handleSubmit(e, {
-      personalInfo,
-      personalityAnswers,
-      aptitudeRatings,
-      selectedSectors,
-      workPreference,
-      additionalInfo
-    });
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await handleSubmit(e, {
+        personalInfo,
+        personalityAnswers,
+        aptitudeRatings,
+        selectedSectors,
+        workPreference,
+        additionalInfo
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -174,9 +180,9 @@ const Assessment = () => {
                   ) : (
                     <Button 
                       type="submit"
-                      disabled={loading}
+                      disabled={isSubmitting}
                     >
-                      {loading ? (
+                      {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           Analyse en cours...
